@@ -5,24 +5,24 @@ public enum Rank {
     SIX(6), SEVEN(7), EIGHT(8), NINE(9), TEN(10),
     JACK(10), QUEEN(10), KING(10);
 
-    private final int value;
-    private final int aceValue;
+    private final int hardValue;
+    private final int softValue;
 
     Rank(int value) {
         this(value, value);
     }
 
-    Rank(int value, int aceValue) {
-        this.value = value;
-        this.aceValue = aceValue;
+    Rank(int hardValue, int softValue) {
+        this.hardValue = hardValue;
+        this.softValue = softValue;
     }
 
-    int getValue() {
-        return value;
+    int getHardValue() {
+        return hardValue;
     }
 
-    int getAceValue() {
-        return aceValue;
+    int getSoftValue() {
+        return softValue;
     }
 
 

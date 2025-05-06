@@ -4,7 +4,7 @@ public class Card {
     private final Rank rank;
     private final Suit suit;
 
-    Card(Rank rank, Suit suit) {
+    private Card(Rank rank, Suit suit) {
         this.rank = rank;
         this.suit = suit;
     }
@@ -13,12 +13,16 @@ public class Card {
         return new Card(rank, suit);
     }
 
-    public int getRankValue() {
-        return rank.getValue();
+    public int getHardValue() {
+        return rank.getHardValue();
     }
 
-    public int getAceValue() {
-        return rank.getAceValue();
+    public int getSoftValue() {
+        return rank.getSoftValue();
+    }
+
+    public String getSuitTitle() {
+        return suit.getTitle();
     }
 
 }
