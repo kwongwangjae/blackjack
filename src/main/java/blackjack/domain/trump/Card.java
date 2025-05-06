@@ -1,4 +1,4 @@
-package blackjack.domain;
+package blackjack.domain.trump;
 
 public class Card {
     private final Rank rank;
@@ -9,7 +9,7 @@ public class Card {
         this.suit = suit;
     }
 
-    public static Card of(Rank rank, Suit suit) {
+    static Card of(Rank rank, Suit suit) {
         return new Card(rank, suit);
     }
 
