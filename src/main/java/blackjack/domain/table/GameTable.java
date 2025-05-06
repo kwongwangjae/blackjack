@@ -1,6 +1,5 @@
 package blackjack.domain.table;
 
-import java.util.HashSet;
 import java.util.List;
 
 import blackjack.domain.participant.Dealer;
@@ -9,10 +8,12 @@ import blackjack.domain.participant.Player;
 public class GameTable {
     private final Dealer dealer;
     private final List<Player> players;
+    private final ScoreTable scoreTable;
 
     private GameTable(Dealer dealer, List<Player> players) {
         this.dealer = dealer;
         this.players = players;
+        this.scoreTable = new ScoreTable(dealer, players);
     }
 
     public static GameTable of(Dealer dealer, List<Player> players) {
@@ -35,5 +36,11 @@ public class GameTable {
         if(!dealer.getName().equals("딜러")) throw new IllegalArgumentException("딜러의 이름은 딜러여야 합니다.");
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
 
+    public ScoreTable getScoreTable() {
+        return scoreTable;
+    }
 }

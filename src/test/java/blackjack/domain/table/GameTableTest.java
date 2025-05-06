@@ -24,9 +24,10 @@ public class GameTableTest {
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> GameTable.of(dealer, players),
-                "중복된 이름이 있으면 IllegalArgumentException을 던져야 한다"
+                () -> GameTable.of(dealer, players)
         );
 
     }
+
+
 }
