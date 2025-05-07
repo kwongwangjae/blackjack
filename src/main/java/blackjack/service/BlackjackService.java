@@ -10,25 +10,23 @@ import blackjack.domain.participant.Player;
 import blackjack.domain.table.GameTable;
 
 public class BlackjackService {
+    private GameTable gameTable;
 
-    public GameTable setupGame(String playerNames) {
+    public void setupGame(String playerNames) {
         List<Player> players = Arrays.stream(playerNames.split(","))
                 .map(String::trim)
                 .map(Player::of)
                 .collect(Collectors.toList());
 
-        Dealer dealer = Dealer.of();
-        return GameTable.of(dealer, players);
+        gameTable = GameTable.of(Dealer.of(), players);
     }
 
-    public void betting(Player player, BigDecimal bet) {
-        player.betting(bet);
+    public void tableBetting(String playerName, BigDecimal amount) {
+        gameTable.tableBetting(playerName, amount);
     }
 
-    public void playGame(GameTable gameTable) {
-
+    public List<String> getPlayerNames() {
+        return gameTable.getPlayerNames();
     }
 
-    public void endGame(GameTable gameTable) {
-    }
 }

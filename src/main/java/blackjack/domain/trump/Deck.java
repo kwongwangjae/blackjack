@@ -13,6 +13,11 @@ public class Deck {
         this.cards = cards;
     }
 
+    //TODO: 덱을 생성할 때 섞인 상태로 주는 것이 옳은가
+    public static Deck of() {
+        return new Deck(shuffle(createCards()));
+    }
+
     private static Deque<Card> createCards() {
         Deque<Card> cards = new ArrayDeque<>();
         for (Suit suit : Suit.values()) {
@@ -27,11 +32,6 @@ public class Deck {
         List<Card> shuffledCards = new ArrayList<>(cards.stream().toList());
         Collections.shuffle(shuffledCards);
         return new ArrayDeque<>(shuffledCards);
-    }
-
-    //TODO: 덱을 생성할 때 섞인 상태로 주는 것이 옳은가
-    public static Deck of() {
-        return new Deck(shuffle(createCards()));
     }
 
     public Deque<Card> getCards() {

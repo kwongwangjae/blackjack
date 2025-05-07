@@ -1,19 +1,24 @@
 package blackjack.domain.table;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import blackjack.domain.participant.Dealer;
 import blackjack.domain.participant.Player;
+import blackjack.domain.trump.Deck;
 
 public class GameTable {
     private final Dealer dealer;
     private final List<Player> players;
     private final ScoreTable scoreTable;
+    private final Deck deck;
 
     private GameTable(Dealer dealer, List<Player> players) {
         this.dealer = dealer;
         this.players = players;
         this.scoreTable = new ScoreTable(dealer, players);
+        this.deck = Deck.of();
     }
 
     public static GameTable of(Dealer dealer, List<Player> players) {
@@ -36,8 +41,22 @@ public class GameTable {
         if(!dealer.getName().equals("딜러")) throw new IllegalArgumentException("딜러의 이름은 딜러여야 합니다.");
     }
 
+    public void tableBetting(String playerName, BigDecimal amount) {
+        Player player = players.stream()
+                .filter(p -> p.getName().equals(playerName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("플레이어가 존재하지 않습니다."));
+        player.betting(amount);
+    }
+
     public List<Player> getPlayers() {
         return players;
+    }
+
+    public List<String> getPlayerNames() {
+        return players.stream()
+                .map(Player::getName)
+                .collect(Collectors.toList());
     }
 
     public ScoreTable getScoreTable() {

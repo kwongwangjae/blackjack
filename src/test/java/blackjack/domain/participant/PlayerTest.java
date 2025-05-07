@@ -25,13 +25,13 @@ public class PlayerTest {
     }
 
     @Test
-    @DisplayName("배팅 금액은 0이상 이어야 한다.")
+    @DisplayName("배팅 금액은 정수 이어야 한다.")
     void bettingMustBePositive() {
         Player player = Player.of("pobi");
 
         assertThrows(
                 IllegalArgumentException.class,
-                () -> player.betting(BigDecimal.valueOf(-10))
+                () -> player.betting(BigDecimal.valueOf(1.1))
         );
     }
 }

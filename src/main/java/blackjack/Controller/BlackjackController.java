@@ -1,12 +1,13 @@
 package blackjack.Controller;
 
-import java.math.BigDecimal;
+import static blackjack.view.InputView.*;
+import static blackjack.view.OutputView.*;
 
-import blackjack.domain.participant.Player;
-import blackjack.domain.table.GameTable;
+import java.math.BigDecimal;
+import java.util.List;
+
 import blackjack.service.BlackjackService;
 import blackjack.view.InputView;
-import blackjack.view.OutputView;
 
 public class BlackjackController {
     private final BlackjackService service;
@@ -17,25 +18,24 @@ public class BlackjackController {
 
     public void run() {
         setUpGame();
+        betting();
     }
 
 
     private void setUpGame() {
-        String playerName = InputView.putPlayerName();
-        GameTable table = service.setupGame(playerName);
-        OutputView.printBlankLine();
-        for (Player player : table.getPlayers()) {
-            BigDecimal bet = InputView.putBet(player.getName());
-            service.betting(player, bet);
-            OutputView.printBlankLine();
-        }
+        String playerName = putPlayerName();
+        service.setupGame(playerName);
+        printBlankLine();
     }
 
+    private void betting() {
+        List<String> playerNames = service.getPlayerNames();
 
-
-
-
-
-
+        for (String name : playerNames) {
+            BigDecimal amount = InputView.putBet(name);
+            service.tableBetting(name, amount);
+            printBlankLine();
+        }
+    }
 
 }
