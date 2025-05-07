@@ -7,10 +7,10 @@ import java.util.Deque;
 import java.util.List;
 
 public class Deck {
-    private final Deque<Card> cards;
+    private final Deque<Card> deck;
 
-    private Deck(Deque<Card> cards) {
-        this.cards = cards;
+    private Deck(Deque<Card> deck) {
+        this.deck = deck;
     }
 
     //TODO: 덱을 생성할 때 섞인 상태로 주는 것이 옳은가
@@ -34,8 +34,11 @@ public class Deck {
         return new ArrayDeque<>(shuffledCards);
     }
 
-    public Deque<Card> getCards() {
-        return cards;
+    public Card draw() {
+        return deck.removeFirst();
     }
 
+    public Deque<Card> getDeck() {
+        return deck;
+    }
 }

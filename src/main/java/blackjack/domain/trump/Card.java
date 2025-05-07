@@ -21,4 +21,8 @@ public class Card {
         return rank.getSoftValue();
     }
 
+    public String getTitle() {
+        return rank.getTitle() + suit.getTitle();
+    }
+
 }

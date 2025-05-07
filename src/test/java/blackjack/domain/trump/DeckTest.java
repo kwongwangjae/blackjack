@@ -11,7 +11,7 @@ public class DeckTest {
     void deckSizeAreFiftyTwo() {
         Deck deck = Deck.of();
 
-        int size = deck.getCards().size();
+        int size = deck.getDeck().size();
 
         assertEquals(52, size);
     }
