@@ -2,10 +2,13 @@ package blackjack.service;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import blackjack.domain.participant.Dealer;
+import blackjack.domain.participant.Participant;
 import blackjack.domain.participant.Player;
 import blackjack.domain.table.GameTable;
 
@@ -40,6 +43,16 @@ public class BlackjackService {
                         .findFirst()
                         .get()
         );
+    }
+
+    public Map<Participant, BigDecimal> playBlackjack() {
+        if (gameTable.isDealerBlackjack()) {
+            gameTable.dealerBlackjack();
+        }
+        else {
+            gameTable.playerBlackjack();
+        }
+        return gameTable.getScoreTable().getScores();
     }
 
     public List<String> getPlayerNames() {

@@ -5,7 +5,11 @@ import static blackjack.view.OutputView.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
+import blackjack.domain.participant.Dealer;
+import blackjack.domain.participant.Participant;
+import blackjack.domain.participant.Player;
 import blackjack.service.BlackjackService;
 
 public class BlackjackController {
@@ -19,6 +23,7 @@ public class BlackjackController {
         setUpGame();
         betting();
         separateCard();
+        playBlackjack();
     }
 
 
@@ -51,6 +56,11 @@ public class BlackjackController {
             putPlayerCard(name, cards);
         }
     }
+
+    public void playBlackjack() {
+    }
+
+
 
 
 

@@ -1,6 +1,10 @@
 package blackjack.view;
 
+import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
+
+import blackjack.domain.participant.Participant;
 
 public class OutputView {
     public static void printBlankLine() {
@@ -26,5 +30,19 @@ public class OutputView {
     public static void putBust(String playerName) {
         System.out.printf("%s은(는) 21을 초과하여 패배 했습니다.%n", playerName);
     }
+
+    public static void putResultLine(String participant, String cards, int score) {
+        System.out.printf("%s 카드: %s - 결과: %d%n", participant , cards, score);
+    }
+
+    public static void putFinalScore(Map<Participant, BigDecimal> scoreTable) {
+        System.out.println("## 최종 수익");
+        for (var entry : scoreTable.entrySet()) {
+            String participant = entry.getKey().getName();
+            BigDecimal score = entry.getValue();
+            System.out.printf("%s: %s%n", participant, score.toPlainString());
+        }
+    }
+
 
 }

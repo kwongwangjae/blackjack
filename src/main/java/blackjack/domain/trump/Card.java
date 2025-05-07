@@ -13,6 +13,14 @@ public class Card {
         return new Card(rank, suit);
     }
 
+    public Rank getRank() {
+        return rank;
+    }
+
+    public Suit getSuit() {
+        return suit;
+    }
+
     public int getHardValue() {
         return rank.getHardValue();
     }

@@ -1,7 +1,4 @@
 package blackjack.domain.participant;
-
-import java.util.List;
-
 import blackjack.domain.trump.Card;
 
 public abstract class Participant {

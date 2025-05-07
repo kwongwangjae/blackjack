@@ -1,7 +1,5 @@
 package blackjack.domain.participant;
 
-import blackjack.domain.trump.Card;
-
 public class Dealer extends Participant {
 
     private Dealer() {

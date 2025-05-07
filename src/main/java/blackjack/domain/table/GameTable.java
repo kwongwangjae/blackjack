@@ -52,6 +52,27 @@ public class GameTable {
         return player.showInitialCards();
     }
 
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    public List<String> getPlayerNames() {
+        return players.stream()
+                .map(Player::getName)
+                .collect(Collectors.toList());
+    }
+
+    public boolean isDealerBlackjack() {
+        return dealer.getHand().isBlackjack();
+    }
+
+    public void dealerBlackjack() {
+        scoreTable.dealerBlackjack(players);
+    }
+
+    public void playerBlackjack() {
+        scoreTable.dealerBlackjack(players);
+    }
 
     private static void validationPlayer(List<Player> players) {
         if(players.isEmpty()){
@@ -67,17 +88,12 @@ public class GameTable {
         if(!dealer.getName().equals("딜러")) throw new IllegalArgumentException("딜러의 이름은 딜러여야 합니다.");
     }
 
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public List<String> getPlayerNames() {
-        return players.stream()
-                .map(Player::getName)
-                .collect(Collectors.toList());
+    public Dealer getDealer() {
+        return dealer;
     }
 
     public ScoreTable getScoreTable() {
         return scoreTable;
     }
+
 }
