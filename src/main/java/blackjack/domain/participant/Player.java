@@ -1,6 +1,9 @@
 package blackjack.domain.participant;
 
 import java.math.BigDecimal;
+import java.util.stream.Collectors;
+
+import blackjack.domain.trump.Card;
 
 public class Player extends Participant {
     private BigDecimal bet;
@@ -11,6 +14,13 @@ public class Player extends Participant {
 
     public static Player of(String name) {
         return new Player(name);
+    }
+
+    @Override
+    public String showInitialCards() {
+        return getHand().getCards().stream()
+                .map(Card::getTitle)
+                .collect(Collectors.joining(", "));
     }
 
     public void betting(BigDecimal amount) {

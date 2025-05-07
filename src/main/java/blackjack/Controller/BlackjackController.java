@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import blackjack.service.BlackjackService;
-import blackjack.view.InputView;
 
 public class BlackjackController {
     private final BlackjackService service;
@@ -19,6 +18,7 @@ public class BlackjackController {
     public void run() {
         setUpGame();
         betting();
+        separateCard();
     }
 
 
@@ -32,10 +32,26 @@ public class BlackjackController {
         List<String> playerNames = service.getPlayerNames();
 
         for (String name : playerNames) {
-            BigDecimal amount = InputView.putBet(name);
+            BigDecimal amount = putBet(name);
             service.tableBetting(name, amount);
             printBlankLine();
         }
     }
+
+    private void separateCard() {
+        List<String> playerNames = service.getPlayerNames();
+        service.dealInitialCards();
+        putSeparateCard(playerNames);
+
+        String dealerCard = service.getDealerInitialCards();
+        putDealerCard(dealerCard);
+
+        for (String name : playerNames) {
+            String cards = service.getPlayerInitialCards(name);
+            putPlayerCard(name, cards);
+        }
+    }
+
+
 
 }

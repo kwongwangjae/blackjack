@@ -27,6 +27,32 @@ public class GameTable {
         return new GameTable(dealer, players);
     }
 
+    public void tableBetting(String playerName, BigDecimal amount) {
+        Player player = players.stream()
+                .filter(p -> p.getName().equals(playerName))
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("플레이어가 존재하지 않습니다."));
+        player.betting(amount);
+    }
+
+    public void dealInitialCards() {
+        for (int i = 0; i < 2; i++) {
+            for (Player player : players) {
+                player.receiveCard(deck.draw());
+            }
+            dealer.receiveCard(deck.draw());
+        }
+    }
+
+    public String showDealerCard() {
+        return dealer.showInitialCards();
+    }
+
+    public String showPlayerCards(Player player) {
+        return player.showInitialCards();
+    }
+
+
     private static void validationPlayer(List<Player> players) {
         if(players.isEmpty()){
             throw new IllegalArgumentException("최소한 플레이어 한 명은 존재해야 합니다.");
@@ -39,14 +65,6 @@ public class GameTable {
 
     private static void validationDealer(Dealer dealer) {
         if(!dealer.getName().equals("딜러")) throw new IllegalArgumentException("딜러의 이름은 딜러여야 합니다.");
-    }
-
-    public void tableBetting(String playerName, BigDecimal amount) {
-        Player player = players.stream()
-                .filter(p -> p.getName().equals(playerName))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("플레이어가 존재하지 않습니다."));
-        player.betting(amount);
     }
 
     public List<Player> getPlayers() {

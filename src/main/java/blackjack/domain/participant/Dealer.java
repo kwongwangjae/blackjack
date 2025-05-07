@@ -1,5 +1,7 @@
 package blackjack.domain.participant;
 
+import blackjack.domain.trump.Card;
+
 public class Dealer extends Participant {
 
     private Dealer() {
@@ -10,4 +12,9 @@ public class Dealer extends Participant {
         return new Dealer();
     }
 
+    @Override
+    public String showInitialCards() {
+        //TODO: 너무 복잡하게 설계 수정 방안을 마련해야 함 + 딜러에게 첫장 선택권 마련
+        return getHand().getCards().get(0).getTitle();
+    }
 }

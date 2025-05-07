@@ -25,6 +25,23 @@ public class BlackjackService {
         gameTable.tableBetting(playerName, amount);
     }
 
+    public void dealInitialCards() {
+        gameTable.dealInitialCards();
+    }
+
+    public String getDealerInitialCards() {
+        return gameTable.showDealerCard();
+    }
+
+    public String getPlayerInitialCards(String playerName) {
+        return gameTable.showPlayerCards(
+                gameTable.getPlayers().stream()
+                        .filter(p -> p.getName().equals(playerName))
+                        .findFirst()
+                        .get()
+        );
+    }
+
     public List<String> getPlayerNames() {
         return gameTable.getPlayerNames();
     }
