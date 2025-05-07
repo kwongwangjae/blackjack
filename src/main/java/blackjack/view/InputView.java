@@ -7,7 +7,7 @@ public class InputView {
     private static final Scanner scanner = new Scanner(System.in);
 
     public static String putPlayerName() {
-        System.out.printf("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)%n");
+        System.out.println("게임에 참여할 사람의 이름을 입력하세요.(쉼표 기준으로 분리)");
         return scanner.nextLine().trim();
     }
 
@@ -16,5 +16,10 @@ public class InputView {
         return new BigDecimal(scanner.nextLine().trim());
     }
 
+    public static boolean putHit(String playerName) {
+        System.out.printf("%s는 한 장의 카드를 더 받겠습니까? (예:y, 아니오:n)%n", playerName);
+        String line = scanner.nextLine().trim().toLowerCase();
+        return "y".equals(line);
+    }
 
 }
