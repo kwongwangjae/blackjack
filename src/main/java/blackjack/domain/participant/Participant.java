@@ -11,6 +11,14 @@ public abstract class Participant {
 
     public abstract String showInitialCards();
 
+    public boolean isBlackJack() {
+        return hand.isBlackjack();
+    }
+
+    public int calculateScore() {
+        return getHand().getBestScore();
+    }
+
     public String getName() {
         return name;
     }

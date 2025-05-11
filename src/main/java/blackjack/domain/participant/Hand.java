@@ -9,20 +9,23 @@ import blackjack.domain.trump.Rank;
 public class Hand {
     private final List<Card> cards = new ArrayList<>();
 
-    public void addCard(Card card) {
+    void addCard(Card card) {
         cards.add(card);
     }
 
-    public List<Card> getCards() {
+    List<Card> getCards() {
         return cards;
     }
 
-    public int getBestScore() {
+    int getBestScore() {
+        if (!hasAce()) {
+            return getHardTotal();
+        }
         int soft = getSoftTotal();
         return (soft <= 21) ? soft : getHardTotal();
     }
 
-    public boolean isBlackjack() {
+    boolean isBlackjack() {
         return cards.size() == 2 && getBestScore() == 21;
     }
 

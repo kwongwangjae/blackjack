@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import blackjack.domain.participant.Participant;
 import blackjack.service.BlackjackService;
 
 public class BlackjackController {
@@ -47,18 +48,50 @@ public class BlackjackController {
     private void separateCard() {
         List<String> playerNames = service.getPlayerNames();
         service.dealInitialCards();
-        putSeparateCard(playerNames);
 
-        String dealerCard = service.getDealerInitialCards();
-        putDealerCard(dealerCard);
+        putSeparateCard(playerNames);
+        putDealerCard(service.getDealerInitialCards());
 
         for (String name : playerNames) {
-            String cards = service.getPlayerInitialCards(name);
-            putPlayerCard(name, cards);
+            putPlayerCard(name, service.getPlayerInitialCards(name));
         }
+        printBlankLine();
     }
 
     public void playBlackjack() {
+        if(service.isDealerBlackjack()){
+            result();
+        }
+        else{
+            for(String name : service.getPlayerNames()){
+                while (putHit(name)) {
+                    service.playerHit(name);
+                    putPlayerCard(name, service.getPlayerInitialCards(name));
+                }
+            }
+
+            if (service.shouldDealerHit()) {
+                service.dealerHit();
+                putDealerHit();
+            }
+            printBlankLine();
+            result();
+        }
+    }
+
+
+    public void result() {
+        List<String> playerNames = service.getPlayerNames();
+        putResultLine("딜러", service.getDealerInitialCards(), service.getDealerScore());
+
+        for(String name : playerNames){
+            putResultLine(name, service.getPlayerInitialCards(name), service.getPlayerScore(name));
+        }
+
+        printBlankLine();
+
+        Map<Participant, BigDecimal> finalScores = service.calculateFinalScores();
+        putFinalScore(finalScores);
     }
 
 

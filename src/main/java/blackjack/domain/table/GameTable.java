@@ -1,11 +1,13 @@
 package blackjack.domain.table;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
 import blackjack.domain.participant.Dealer;
+import blackjack.domain.participant.Participant;
 import blackjack.domain.participant.Player;
 import blackjack.domain.trump.Deck;
 
@@ -46,6 +48,42 @@ public class GameTable {
             dealer.receiveCard(deck.draw());
         }
     }
+
+    public void dealHit(Participant participant) {
+        participant.receiveCard(deck.draw());
+    }
+
+    //TODO: 변경 필요
+    public void result() {
+        for (Player player : players) {
+            BigDecimal bet = player.getBet();
+            if (dealer.calculateScore() > 21 && player.calculateScore() > 21) {
+                scoreTable.updateScore(player, BigDecimal.ZERO);
+                scoreTable.updateScore(dealer, BigDecimal.ZERO);
+            } else if (player.calculateScore() > 21) {
+                scoreTable.updateScore(player, bet.negate());
+                scoreTable.updateScore(dealer, bet);
+            } else if (dealer.calculateScore() > 21) {
+                scoreTable.updateScore(player, bet);
+                scoreTable.updateScore(dealer, bet.negate());
+            } else if (dealer.calculateScore() > player.calculateScore()) {
+                scoreTable.updateScore(dealer, bet);
+                scoreTable.updateScore(player, bet.negate());
+            } else if (!dealer.isBlackJack() && player.isBlackJack()) {
+                BigDecimal payout = bet.multiply(BigDecimal.valueOf(3))
+                        .divide(BigDecimal.valueOf(2), 1, RoundingMode.HALF_UP);
+                scoreTable.updateScore(player, payout);
+                scoreTable.updateScore(dealer, payout.negate());
+            } else if (dealer.calculateScore() < player.calculateScore()) {
+                scoreTable.updateScore(player, bet);
+                scoreTable.updateScore(dealer, bet.negate());
+            } else {
+                scoreTable.updateScore(player, BigDecimal.ZERO);
+                scoreTable.updateScore(dealer, BigDecimal.ZERO);
+            }
+        }
+    }
+
 
     public String showDealerCard() {
         return dealer.showInitialCards();
