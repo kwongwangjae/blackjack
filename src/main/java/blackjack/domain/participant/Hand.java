@@ -37,11 +37,9 @@ public class Hand {
     }
 
     private int getSoftTotal() {
-        int hard = getHardTotal();
-        if (hasAce()) {
-            return hard + 10;
-        }
-        return hard;
+        return cards.stream()
+                .mapToInt(Card::getSoftValue)
+                .sum();
     }
 
 

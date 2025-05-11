@@ -5,7 +5,8 @@ import blackjack.service.BlackjackService;
 
 public class Blackjack {
     public static void main(String[] args) {
-        BlackjackController controller = new BlackjackController(new BlackjackService());
+        BlackjackService service = new BlackjackService();
+        BlackjackController controller = new BlackjackController(service);
         controller.run();
     }
 }

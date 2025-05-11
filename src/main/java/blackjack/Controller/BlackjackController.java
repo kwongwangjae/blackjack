@@ -4,12 +4,10 @@ import static blackjack.view.InputView.*;
 import static blackjack.view.OutputView.*;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import blackjack.domain.participant.Dealer;
-import blackjack.domain.participant.Participant;
-import blackjack.domain.participant.Player;
 import blackjack.service.BlackjackService;
 
 public class BlackjackController {
@@ -35,12 +33,15 @@ public class BlackjackController {
 
     private void betting() {
         List<String> playerNames = service.getPlayerNames();
+        Map<String, BigDecimal> bettings = new HashMap<>();
 
         for (String name : playerNames) {
             BigDecimal amount = putBet(name);
-            service.tableBetting(name, amount);
+            bettings.put(name, amount);
             printBlankLine();
         }
+
+        service.tableBetting(bettings);
     }
 
     private void separateCard() {

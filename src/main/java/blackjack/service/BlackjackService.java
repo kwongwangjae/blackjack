@@ -24,9 +24,10 @@ public class BlackjackService {
         gameTable = GameTable.of(Dealer.of(), players);
     }
 
-    public void tableBetting(String playerName, BigDecimal amount) {
-        gameTable.tableBetting(playerName, amount);
+    public void tableBetting(Map<String, BigDecimal> bettings) {
+        gameTable.tableBetting(bettings);
     }
+
 
     public void dealInitialCards() {
         gameTable.dealInitialCards();
@@ -43,16 +44,6 @@ public class BlackjackService {
                         .findFirst()
                         .get()
         );
-    }
-
-    public Map<Participant, BigDecimal> playBlackjack() {
-        if (gameTable.isDealerBlackjack()) {
-            gameTable.dealerBlackjack();
-        }
-        else {
-            gameTable.playerBlackjack();
-        }
-        return gameTable.getScoreTable().getScores();
     }
 
     public List<String> getPlayerNames() {

@@ -2,6 +2,7 @@ package blackjack.domain.table;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import blackjack.domain.participant.Dealer;
@@ -27,12 +28,14 @@ public class GameTable {
         return new GameTable(dealer, players);
     }
 
-    public void tableBetting(String playerName, BigDecimal amount) {
-        Player player = players.stream()
-                .filter(p -> p.getName().equals(playerName))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("플레이어가 존재하지 않습니다."));
-        player.betting(amount);
+    public void tableBetting(Map<String, BigDecimal> bettings) {
+        for (Player player : players) {
+            BigDecimal amount = bettings.get(player.getName());
+            if (amount == null) {
+                throw new IllegalArgumentException(player.getName() + "의 베팅금액이 존재하지 않습니다.");
+            }
+            player.betting(amount);
+        }
     }
 
     public void dealInitialCards() {
@@ -60,18 +63,6 @@ public class GameTable {
         return players.stream()
                 .map(Player::getName)
                 .collect(Collectors.toList());
-    }
-
-    public boolean isDealerBlackjack() {
-        return dealer.getHand().isBlackjack();
-    }
-
-    public void dealerBlackjack() {
-        scoreTable.dealerBlackjack(players);
-    }
-
-    public void playerBlackjack() {
-        scoreTable.dealerBlackjack(players);
     }
 
     private static void validationPlayer(List<Player> players) {

@@ -32,5 +32,5 @@ public class Card {
     public String getTitle() {
         return rank.getTitle() + suit.getTitle();
     }
-
+    
 }
